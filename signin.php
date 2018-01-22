@@ -2,6 +2,8 @@
   include 'partials/includer.php';
   include 'partials/cabezera.php';
   include 'partials/navbar.php';
+  include 'partials/footer.php';
+
 ?>
 <div class="center-form">
 	<h4 class="title">Registro de Usuario</h4>

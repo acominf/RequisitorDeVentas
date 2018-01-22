@@ -1,4 +1,19 @@
-<?php  session_start(); ?>
+<?php  
+  session_start(); 
+
+  function get_string_between($string, $start, $end){
+      $string = ' ' . $string;
+      $ini = strpos($string, $start);
+      if ($ini == 0) return '';
+      $ini += strlen($start);
+      $len = strpos($string, $end, $ini) - $ini;
+      return substr($string, $ini, $len);
+  }
+
+  $url =  $_SERVER['REQUEST_URI'];
+  $pag_actual = get_string_between($url,'/', 'php');
+  $pag_actual = get_string_between($pag_actual,'/', '.');
+?>
 <div class="jumbotron">
   <div class="container text-center">
     <h1>Requisitor De Compras</h1>      
@@ -17,10 +32,10 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index.php">Inicio</a></li>
-        <li><a href="#">Productos</a></li>
-        <li><a href="#">Proveedores</a></li>
-        <li><a href="#">Contacto</a></li>
+        <li <?php if($pag_actual == "index") echo "class='active'"; ?>><a href="index.php">Inicio</a></li>
+        <li <?php if($pag_actual == "productos") echo "class='active'"; ?>><a href="productos.php">Productos</a></li>
+        <li <?php if($pag_actual == "proveedores") echo "class='active'"; ?>><a href="proveedores.php">Proveedores</a></li>
+        <li <?php if($pag_actual == "contacto") echo "class='active'"; ?>><a href="contacto.php">Contacto</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php if (isset($_SESSION['logeado'])){ ?>
@@ -33,7 +48,7 @@
                 break;
               case 1:
                 ?>
-                <li><a href="productos.php"><span class="glyphicon glyphicon-list"></span> Mis productos</a></li>
+                <li><a href="misproductos.php"><span class="glyphicon glyphicon-list"></span> Mis productos</a></li>
                 <?php 
                 break;
               case 2:
@@ -51,5 +66,3 @@
     </div>
   </div>
 </nav>
-
-
