@@ -2,7 +2,6 @@
   include 'partials/includer.php';
   include 'partials/cabezera.php';
   include 'partials/navbar.php';
-  include 'partials/footer.php';
  
   if (isset($_POST["new_user"])){
     $nombre = $_POST["name"];
@@ -34,7 +33,6 @@
       <?php
     }
   }
- 
   if (isset($_POST["login_user"])){
     $email = $_POST["email"];
     $contrasena = md5($_POST["password"]);
@@ -50,8 +48,11 @@
         $_SESSION['tipo'] = $row['tipo'];        
       }
     }
-    header('Location: index.php');
+    $actual_link = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+    $prev_page = substr($_SERVER['HTTP_REFERER'], strpos($_SERVER['HTTP_REFERER'], $actual_link) + 37);
+    header('Location: '.$prev_page);
   }
-
  ?>
 
+
+ <?php include 'partials/footer.php'; ?>

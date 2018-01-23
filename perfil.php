@@ -54,9 +54,9 @@
 	    $web = $_POST["web"];
 	    $fecha = $_POST["date"];
 	    if ($uploadOk == 0) {
-      		$sql2 = "INSERT INTO `info_usuario` (`usuario_id`, `direccion`, `nacimiento`, `paginaweb`) VALUES ('".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."');";
+      		$sql2 = "REPLACE INTO `info_usuario` (`usuario_id`, `direccion`, `nacimiento`, `paginaweb`) VALUES ('".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."');";
 		}else{
-      		$sql2 = "INSERT INTO `info_usuario` (`usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `img`) VALUES ('".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$nombre_img."');";
+      		$sql2 = "REPLACE INTO `info_usuario` (`usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `img`) VALUES ('".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$nombre_img."');";
 		}
 		if (($resultado = $conn->query($sql2)) !== FALSE) {
 	    	?>
