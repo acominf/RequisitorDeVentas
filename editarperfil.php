@@ -6,6 +6,7 @@
   $web = "-";
   $fecha = "dd/mm/yyyy";
   $img = "";
+  $telefono = "";
   $sql = "SELECT * FROM `info_usuario` WHERE `usuario_id` = '".$_SESSION['id']."'";
   if (($resultado = $conn->query($sql)) !== FALSE) {
 	if ($resultado->num_rows > 0) {
@@ -13,7 +14,8 @@
 		$web = $row["paginaweb"];        
 		$img = $row["direccion"];        
 		$direccion = $row["direccion"];    
-		$fecha = $row["nacimiento"];  
+		$fecha = $row["nacimiento"];
+		$telefono = $row["telefono"];
 	}
   }
 ?>
@@ -41,9 +43,15 @@
 	  </div>
 	</div>
 	<div class="form-group">
+	  <label for="telefono" class="col-sm-2 control-label">Telefono </label>
+	  <div class="col-sm-10">
+	    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Apellido" value="<?php echo $telefono; ?>">
+	  </div>
+	</div>	
+	<div class="form-group">
 	  <label for="date" class="col-sm-2 control-label">Fecha de nacimiento</label>
 	  <div class="col-sm-10">
-	    <input type="date" class="form-control" class="datepicker" id="date" name="date" value="">
+	    <input type="date" class="form-control" class="datepicker" id="date" name="date" value="<?php echo $fecha; ?>">
 	  </div>
 	</div>
 	<div class="form-group">

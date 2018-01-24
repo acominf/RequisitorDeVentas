@@ -27,7 +27,7 @@
         <div class="col-xs-5" style="border:0px solid gray">
             <!-- Datos del vendedor y titulo del producto -->
             <h3><?php echo $nombre; ?></h3>    
-            <h5 style="color:#337ab7">vendido por <a href="#"><?php echo $datos_vendedor["nombre"]." ".$datos_vendedor["apellido"]; ?></a></h5>
+            <h5 style="color:#337ab7">vendido por <a href="<?php echo "ver_proveedor.php?id=".$row["proveedor_id"]; ?>"><?php echo $datos_vendedor["nombre"]." ".$datos_vendedor["apellido"]; ?></a></h5>
             <!-- Precios -->
             <h6 class="title-price"><small>PRECIO</small></h6>
             <h3 style="margin-top:0px;"><?php echo $precio; ?>$</h3>

@@ -6,10 +6,12 @@
 	if (($resultado = $conn->query($sql)) !== FALSE) {
 		if ($resultado->num_rows > 0) {
 			$row = $resultado->fetch_array(MYSQLI_ASSOC);
+			$info_id = $row["id"];
 			$web = $row["paginaweb"];        
 			$img = $row["img"];        
 			$direccion = $row["direccion"];    
-			$fecha = $row["nacimiento"];  
+			$fecha = $row["nacimiento"];
+			$telefono = $row["telefono"];
 		}
 	}
 	if (isset($_POST["edit_user"])){
@@ -46,17 +48,18 @@
 		        
 		    } else {
 		    	?>
-		        <script type="text/javascript"> alert("Hubo un error subiendo la foto");</script>
+		        <!--<script type="text/javascript"> alert("Hubo un error subiendo la foto");</script>-->
 		        <?php
 		    }
 		}
 		$direccion = $_POST["address"];
 	    $web = $_POST["web"];
 	    $fecha = $_POST["date"];
+	    $telefono = $_POST["telefono"];
 	    if ($uploadOk == 0) {
-      		$sql2 = "REPLACE INTO `info_usuario` (`usuario_id`, `direccion`, `nacimiento`, `paginaweb`) VALUES ('".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."');";
+      		$sql2 = "REPLACE INTO `info_usuario` ('id', `usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `telefono` ) VALUES ('".@$info_id."','".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$telefono."');";
 		}else{
-      		$sql2 = "REPLACE INTO `info_usuario` (`usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `img`) VALUES ('".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$nombre_img."');";
+      		$sql2 = "REPLACE INTO `info_usuario` ('id', `usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `telefono` , `img`) VALUES ('".@$info_id."','".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$telefono."', '".$nombre_img."');";
 		}
 		if (($resultado = $conn->query($sql2)) !== FALSE) {
 	    	?>
@@ -70,24 +73,23 @@
 	}
 ?>
 
-<div class="center-form">
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <img src="img/<?php echo empty($img) ?  'sinfoto.png' : $img; ?>" alt="" height="150" width="150" class="img-rounded img-responsive" />
+<div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title"><?php echo $_SESSION["nombre"]." ".$_SESSION["apellido"]; ?></h3>
             </div>
-            <div class="col-sm-6 col-md-8">
-                <h4><?php echo $_SESSION["nombre"]." ".$_SESSION["apellido"]; ?></h4>
-                <small><cite title="<?php echo @$direccion; ?>"><i class="glyphicon glyphicon-map-marker"> <?php echo @$direccion; ?>
-                </i></cite></small>
-                <p>
-                    <i class="glyphicon glyphicon-envelope"></i><?php echo  $_SESSION["email"]; ?>
-                    <br />
-                    <i class="glyphicon glyphicon-globe"></i><a href="<?php echo $web; ?>"><?php echo @$web; ?></a>
-                    <br />
-                    <i class="glyphicon glyphicon-gift"></i><?php echo @$fecha; ?>
-                    <br />
-                    <i class="glyphicon glyphicon-user"></i><?php 
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="img/<?php echo empty($img) ?  'sinfoto.png' : $img; ?>" class="img-circle img-responsive"> </div>
+                
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Tipo de usuario</td>
+                        <td><?php 
 						switch ($_SESSION["tipo"]) {
 						    case 0:
 						        echo "Administrador";
@@ -99,11 +101,37 @@
 						        echo "Requisitor";
 						        break;
 						}
-                     ?></p>
-                <div class="btn-group">
-                    <a href="editarperfil.php" class="btn btn-success">Editar datos</a>
+                     ?></td>
+                      </tr>
+                      <tr>
+                        <td>Fecha de nacimiento</td>
+                        <td><?php echo @$fecha; ?></td>
+                      </tr>
+                   
+                         <tr>
+                             <tr>
+                        <td>Página web</td>
+                        <td><?php echo @$web; ?></td>
+                      </tr>
+                        <tr>
+                        <td>Dirección</td>
+                        <td><?php echo @$direccion; ?></td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td><a href="mailto:<?php echo  $_SESSION["email"]; ?>"><?php echo  $_SESSION["email"]; ?></a></td>
+                      </tr>
+                        <td>Teléfono</td>
+                        <td><?php echo @$telefono; ?><br>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <a href="editarperfil.php" class="btn btn-primary">Editar Perfil</a>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
