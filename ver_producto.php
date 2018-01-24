@@ -8,6 +8,7 @@
 		if ($resultado->num_rows > 0) {
 			$row = $resultado->fetch_array(MYSQLI_ASSOC);
 			$nombre = $row["nombre"];        
+			$id = $row["id"];        
 			$img = $row["img"];        
 			$descripcion = $row["descripcion"];    
 			$precio = $row["precio"];
@@ -16,13 +17,12 @@
 			$datos_vendedor = $vendedor->fetch_array(MYSQLI_ASSOC);
 		}
 	}
-
  ?>
 
 <div class="container" style="margin-left: 18%;">
 	<div class="row">
        <div class="col-xs-4 item-photo">
-            <img style="max-width:100%;" src="https://ak1.ostkcdn.com/images/products/8818677/Samsung-Galaxy-S4-I337-16GB-AT-T-Unlocked-GSM-Android-Cell-Phone-85e3430e-6981-4252-a984-245862302c78_600.jpg" />
+            <img style="max-width:100%;" src="img/productos/<?php echo empty($img) ?  'sinfoto.png' : $img; ?>" />
         </div>
         <div class="col-xs-5" style="border:0px solid gray">
             <!-- Datos del vendedor y titulo del producto -->
@@ -44,7 +44,7 @@
 	            <div class="section" style="padding-bottom:20px;">
 	                <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar al carro</button>
 	            </div>                                        
-	        <?php } ?>                
+	        <?php } ?>
         </div>                              
         <div class="col-xs-9">
             <ul class="menu-items">
