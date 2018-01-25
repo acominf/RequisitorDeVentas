@@ -10,7 +10,8 @@
 			$nombre = $row["nombre"];        
 			$id = $row["id"];        
 			$img = $row["img"];        
-			$descripcion = $row["descripcion"];    
+			$descripcion = $row["descripcion"];
+			$estado = $row["estado"];
 			$precio = $row["precio"];
 			$sql2 = "SELECT * FROM `usuario` WHERE id = ".$row["proveedor_id"]." AND tipo = 1" ;
 			$vendedor = $conn->query($sql2);
@@ -44,7 +45,14 @@
 	            <div class="section" style="padding-bottom:20px;">
 	                <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar al carro</button>
 	            </div>                                        
-	        <?php } ?>
+	        <?php }
+	         if($_SESSION["tipo"] == 0){
+			?>
+            <div class="section" style="padding-bottom:20px;">
+            	<a href="<?php echo "cambiar_estado.php?id=".$row['id']."&tipo=producto&estado=".$estado; ?>"  class="btn btn-<?php if($estado == 0){ echo"danger";}else{echo"success";} ?>"><?php if($estado == 0) { echo"Dar de baja";}else{echo"Dar de alta";} ?></a>
+            </div>  
+	        <?php }
+	         ?>
         </div>                              
         <div class="col-xs-9">
             <ul class="menu-items">

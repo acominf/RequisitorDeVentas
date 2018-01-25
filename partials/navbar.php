@@ -43,7 +43,7 @@
           <?php               
             switch ($_SESSION["tipo"]) {
               case 0:?>
-                <li><a href="administar.php"><span class="glyphicon glyphicon-cog"></span> Administar</a></li>
+                <li><a href="administrar.php"><span class="glyphicon glyphicon-cog"></span> Administar</a></li>
                 <?php 
                 break;
               case 1:

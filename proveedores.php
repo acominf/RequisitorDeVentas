@@ -2,7 +2,7 @@
 	include 'partials/includer.php';
 	include 'partials/cabezera.php';
 	include 'partials/navbar.php';
-	$sql = "SELECT * FROM `usuario` WHERE `tipo` = 1";
+	$sql = "SELECT * FROM `usuario` WHERE `tipo` = 1 AND `estado` = 0";
  ?>
     <div class="row">
         <div class="col-xs-12 col-sm-offset-3 col-sm-6">
@@ -30,12 +30,15 @@
                             <span class="glyphicon glyphicon-envelope" data-toggle="tooltip" title="<?php echo $row['correo']; ?>"><?php echo " ".$row['correo']; ?></span>
                         </div>
                         </a>
-                        <div class="col-xs-12 col-sm-3">
-                        	<br>
-                        	<br>
-                            <span class="glyphicon glyphicon-remove" data-toggle="tooltip" ></span>
-                        </div>                        
-                        <div class="clearfix"></div>
+                        <?php if ($_SESSION["tipo"]==0) {
+						?>
+	                        <div class="col-xs-12 col-sm-3">
+	                        	<br>
+	                        	<br>
+	                            <span class="glyphicon glyphicon-remove" data-toggle="tooltip" ></span>
+	                        </div>                        
+                        <?php } ?>
+	                        <div class="clearfix"></div>
                     </li>
                  <?php }} ?>
                 </ul>

@@ -2,7 +2,7 @@
 	include 'partials/includer.php';
 	include 'partials/cabezera.php';
 	include 'partials/navbar.php';
-	$sql = "SELECT * FROM `producto`";
+	$sql = "SELECT * FROM `producto` WHERE  `estado` = 0";
  ?>
 <div class="container">
 <?php 	

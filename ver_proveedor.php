@@ -10,7 +10,8 @@
 			$nombre = $row["nombre"];      
 			$apellido = $row["apellido"];      
 			$id = $row["id"];
-			$email = $row["correo"];        
+			$email = $row["correo"];
+			$estado = $row["estado"];
 			$sql2 = "SELECT * FROM `info_usuario` WHERE usuario_id = ".$id;
 			$vendedor = $conn->query($sql2);
 			if (($resultado = $conn->query($sql2)) !== FALSE) {
@@ -51,9 +52,7 @@
                         <td>Fecha de nacimiento</td>
                         <td><?php echo @$nacimiento; ?></td>
                       </tr>
-                   
-                         <tr>
-                             <tr>
+                      <tr>
                         <td>Página web</td>
                         <td><?php echo @$paginaweb; ?></td>
                       </tr>
@@ -63,12 +62,22 @@
                       </tr>
                       <tr>
                         <td>Email</td>
-                        <td><a href="mailto:<?php echo  $_SESSION["email"]; ?>"><?php echo  $_SESSION["email"]; ?></a></td>
+                        <td><a href="mailto:<?php echo  $email; ?>"><?php echo  $email; ?></a></td>
                       </tr>
+                   	 <tr>
                         <td>Teléfono</td>
                         <td><?php echo @$telefono; ?><br>
                         </td>
                       </tr>
+                     <?php if($_SESSION["tipo"]==0){ ?>
+                   	 <tr>
+                        <td>Acción</td>
+                        <td>
+            	<a href="<?php echo "cambiar_estado.php?id=".$row['id']."&tipo=proveedor&estado=".$estado; ?>"  class="btn btn-<?php if($estado == 0){ echo"danger";}else{echo"success";} ?>"><?php if($estado == 0) { echo"Dar de baja";}else{echo"Dar de alta";} ?></a>
+                        	<br>
+                        </td>
+                      </tr>
+                      <?php } ?>
                     </tbody>
                   </table>
                 </div>
