@@ -18,7 +18,17 @@
 			$datos_vendedor = $vendedor->fetch_array(MYSQLI_ASSOC);
 		}
 	}
- ?>
+	if($_SESSION["mensaje"]){
+	?>
+
+	<script type="text/javascript">
+		alert("Se agregó el producto al carrito");
+	</script>
+	<?php
+	$_SESSION["mensaje"] = FALSE;
+	} ?>
+
+
 
 <div class="container" style="margin-left: 18%;">
 	<div class="row">
@@ -33,17 +43,9 @@
             <h6 class="title-price"><small>PRECIO</small></h6>
             <h3 style="margin-top:0px;"><?php echo $precio; ?>$</h3>
             <?php if (isset($_SESSION['logeado']) && ($_SESSION['tipo'] == 2)){ ?>
-	            <div class="section" style="padding-bottom:20px;">
-	                <h6 class="title-attr"><small>CANTIDAD</small></h6>                    
-	                <div>
-	                    <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
-	                    <input value="1" />
-	                    <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
-	                </div>
-	            </div>
 	            <!-- Botones de compra -->
 	            <div class="section" style="padding-bottom:20px;">
-	                <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar al carro</button>
+	            	<a href="<?php echo "agregar_carrito.php?id=".$row['id']."&nombre=".$nombre; ?>"  class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar al carrito</a>
 	            </div>                                        
 	        <?php }
 	         if($_SESSION["tipo"] == 0){
@@ -67,6 +69,6 @@
             </div>
         </div>		
     </div>
-</div>  
+</div>
 
 <?php  include 'partials/footer.php'; ?>

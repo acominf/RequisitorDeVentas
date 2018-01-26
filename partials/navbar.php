@@ -54,6 +54,7 @@
               case 2:
                 ?>
                 <li><a href="carrito.php"><span class="glyphicon glyphicon-shopping-cart"></span> Carrito</a></li>
+                <li><a href="mis_requisiciones.php"><span class="glyphicon glyphicon-shopping-list"></span> Mis requisiciones</a></li>
                 <?php 
                 break;
               } ?>
