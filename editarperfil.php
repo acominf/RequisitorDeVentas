@@ -12,7 +12,7 @@
 	if ($resultado->num_rows > 0) {
 		$row = $resultado->fetch_array(MYSQLI_ASSOC);
 		$web = $row["paginaweb"];        
-		$img = $row["direccion"];        
+		$img = $row["img"];        
 		$direccion = $row["direccion"];    
 		$fecha = $row["nacimiento"];
 		$telefono = $row["telefono"];
@@ -45,7 +45,7 @@
 	<div class="form-group">
 	  <label for="telefono" class="col-sm-2 control-label">Telefono </label>
 	  <div class="col-sm-10">
-	    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Apellido" value="<?php echo $telefono; ?>">
+	    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="telefono" value="<?php echo $telefono; ?>">
 	  </div>
 	</div>	
 	<div class="form-group">
@@ -57,7 +57,7 @@
 	<div class="form-group">
 	  <label for="imagen" class="col-sm-2 control-label">Foto de perfil</label>
 	  <div class="col-sm-10">
-	    <input type="file" name="fileToUpload" id="fileToUpload">
+	    <input type="file" name="fileToUpload" id="fileToUpload" value="img/<?php echo $img; ?>">
 	  </div>
 	</div>
 	<div id="divCheckbox" style="display: none;">

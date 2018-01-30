@@ -12,6 +12,9 @@
 			$direccion = $row["direccion"];    
 			$fecha = $row["nacimiento"];
 			$telefono = $row["telefono"];
+			$flag = TRUE;
+		}else{
+			$flag = FALSE;
 		}
 	}
 	if (isset($_POST["edit_user"])){
@@ -57,10 +60,20 @@
 	    $fecha = $_POST["date"];
 	    $telefono = $_POST["telefono"];
 	    if ($uploadOk == 0) {
-      		$sql2 = "REPLACE INTO `info_usuario` ('id', `usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `telefono` ) VALUES ('".@$info_id."','".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$telefono."');";
+	    	if($flag){
+      			$sql2 = "REPLACE INTO `info_usuario` ('id', `usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `telefono` ) VALUES ('".@$info_id."','".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$telefono."');";
+	    		
+	    	}else{
+      			$sql2 = "INSERT INTO `info_usuario` (`usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `telefono` ) VALUES ('".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$telefono."');";
+	    	}
 		}else{
-      		$sql2 = "REPLACE INTO `info_usuario` ('id', `usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `telefono` , `img`) VALUES ('".@$info_id."','".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$telefono."', '".$nombre_img."');";
+	    	if($flag){			
+      			$sql2 = "REPLACE INTO `info_usuario` ('id', `usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `telefono` , `img`) VALUES ('".@$info_id."','".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$telefono."', '".$nombre_img."');";
+      		}else{
+      			$sql2 = "INSERT INTO `info_usuario` (`usuario_id`, `direccion`, `nacimiento`, `paginaweb`, `telefono` , `img`) VALUES ('".$_SESSION["id"]."', '".$direccion."', '".$fecha."', '".$web."', '".$telefono."', '".$nombre_img."');";
+      		}
 		}
+		
 		if (($resultado = $conn->query($sql2)) !== FALSE) {
 	    	?>
 	        <script type="text/javascript"> alert("Se han actualizado los datos satisfactoriamente");</script>

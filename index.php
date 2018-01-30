@@ -40,14 +40,18 @@
     if (($resultado = $conn->query($sql)) !== FALSE) {
       if ($resultado->num_rows > 0) {
         $row = $resultado->fetch_array(MYSQLI_ASSOC);
-        $_SESSION['logeado'] = true;
-        $_SESSION['nombre'] = $row['nombre'];
-        $_SESSION['apellido'] = $row['apellido'];
-        $_SESSION['id'] = $row['id'];        
-        $_SESSION['email'] = $row['correo'];        
-        $_SESSION['tipo'] = $row['tipo'];
-        $_SESSION["carrito"] = [];
-        $_SESSION["mensaje"] = FALSE;
+        if($row["estado"] == 1){
+          echo "Estas bloqueado, comunicate con el administrador";
+        }else{
+          $_SESSION['logeado'] = true;
+          $_SESSION['nombre'] = $row['nombre'];
+          $_SESSION['apellido'] = $row['apellido'];
+          $_SESSION['id'] = $row['id'];        
+          $_SESSION['email'] = $row['correo'];        
+          $_SESSION['tipo'] = $row['tipo'];
+          $_SESSION["carrito"] = [];
+          $_SESSION["mensaje"] = FALSE;
+        }
       }
     }else{
     ?>

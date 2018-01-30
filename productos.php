@@ -13,7 +13,7 @@
 					<div class="row">
 							<div class="col-md-5 col-sm-12 col-xs-12">
 								<div class="product-image"> 
-									<img src="img/products/p4.png" class="img-responsive"> 
+									<img src="img/productos/<?php echo empty($row["img"]) ?  'sinfoto.png' : $row["img"]; ?>" class="img-responsive"> 
 								</div>
 							</div>
 							<div class="col-md-7 col-sm-12 col-xs-12">
@@ -34,9 +34,9 @@
 							<div class="product-info smart-form">
 								<div class="row">
 									<div class="col-md-12">
-										<?php if (isset($_SESSION['logeado']) && ($_SESSION['tipo'] == 2)){ ?>
-											<a href="javascript:void(0);" class="btn btn-danger">Agregar al carrito</a>
-										<?php } ?>
+							            <div class="section" style="padding-bottom:20px;">
+							            	<a href="<?php echo "agregar_carrito.php?id=".$row['id']."&nombre=".$row['nombre']; ?>"  class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar al carrito</a>
+							            </div>   
 			                            <a href="<?php echo "ver_producto.php?id=".$row['id']; ?>" class="btn btn-info">Ver más</a>
 									</div>
 								</div>

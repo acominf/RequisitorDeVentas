@@ -2,7 +2,6 @@
   include 'partials/includer.php';
   include 'partials/cabezera.php';
   include 'partials/navbar.php';
-  include 'partials/footer.php';
 
 ?>
 <div class="center-form">
@@ -42,3 +41,5 @@
 	</div>
 	</form>
 </div>
+
+<?php   include 'partials/footer.php'; ?>

@@ -15,7 +15,7 @@
 			$usuario = $conn->query($sql2);
 			$datos_usuario = $usuario->fetch_array(MYSQLI_ASSOC);
 			$sql3 = "SELECT * from `info_usuario` WHERE usuario_id = ".$row["usuario_id"];
-			$info_usuario = $conn->query($sql2);
+			$info_usuario = $conn->query($sql3);
 			$datos_info_usuario = $info_usuario->fetch_array(MYSQLI_ASSOC);
 		}
 	}
@@ -69,30 +69,30 @@
     						</thead>
     						<tbody>
 					<?php 
-						if (($resultado = $conn->query($sql)) !== FALSE) {
-							while($row = $resultado->fetch_array(MYSQLI_ASSOC)){ 
-								$sql_1 = "SELECT * FROM `producto` WHERE `producto`.`id` = ".$row["producto_id"];
-								if (($resultado = $conn->query($sql_1)) !== FALSE) {
-										if ($resultado->num_rows > 0) {
-											$row = $resultado->fetch_array(MYSQLI_ASSOC);
-											$id = $row["id"];        
-											$precio = $row["precio"];        
-											$nombre = $row["nombre"];        
-											$sql2 = "SELECT COUNT(id) AS 'cantidad' FROM requisicion WHERE id = ".$_GET["id"]." AND producto_id = ".$row["id"];
-											$cantidad = $conn->query($sql2);
-											$datos_cantidad = $cantidad->fetch_array(MYSQLI_ASSOC);							
-										}
-									}?>								
-
-    							<tr>
-    								<td><?php echo $nombre; ?></td>
-    								<td class="text-center"><?php echo $precio; ?>$</td>
-    								<td class="text-center"><?php echo $datos_cantidad["cantidad"]; ?></td>
-    								<td class="text-right"><?php $total += (float)$precio*(int)$datos_cantidad["cantidad"];
-    								echo ((float)$precio*(int)$datos_cantidad["cantidad"]); ?>$</td>
-    							</tr>
-					<?php }
-				}?>
+                        $sql = "SELECT * FROM `requisicion` where `requisicion`.`id` = ".$id." GROUP BY `requisicion`.`producto_id";
+                        if (($resultado = $conn->query($sql)) !== FALSE) {
+                            while($row = $resultado->fetch_array(MYSQLI_ASSOC)){ 
+                                $sql_1 = "SELECT * FROM `producto` WHERE `producto`.`id` = ".$row["producto_id"];
+                                if (($resultado2 = $conn->query($sql_1)) !== FALSE) {
+                                    while($result = $resultado2->fetch_array(MYSQLI_ASSOC)){
+                                        $id = $result["id"];        
+                                        $precio = $result["precio"];        
+                                        $nombre = $result["nombre"];        
+                                        $sql2 = "SELECT COUNT(id) AS 'cantidad' FROM requisicion WHERE id = ".$_GET["id"]." AND producto_id = ".$result["id"];
+                                        $cantidad = $conn->query($sql2);
+                                        $datos_cantidad = $cantidad->fetch_array(MYSQLI_ASSOC);?>                         
+                                        <tr>
+                                            <td><?php echo $nombre; ?></td>
+                                            <td class="text-center"><?php echo $precio; ?>$</td>
+                                            <td class="text-center"><?php echo $datos_cantidad["cantidad"]; ?></td>
+                                            <td class="text-right"><?php $total += (float)$precio*(int)$datos_cantidad["cantidad"];
+                                            echo ((float)$precio*(int)$datos_cantidad["cantidad"]); ?>$</td>
+                                        </tr>
+                                    <?php
+                                    }
+                                }
+                            }?>
+                    <?php }?>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>

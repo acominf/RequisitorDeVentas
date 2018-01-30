@@ -36,6 +36,7 @@
 									<center><p>Estado: <?php echo $row["estado"]== 0? "Por aprobar" :"Rechazado";  ?></p></center>
 								</div>
 							</li>
+							<div align="right"><a href="<?php echo "editar_requisicion.php?id=".$row["id"]; ?>">editar</a></div>
 							<div align="right"><a href="<?php echo "ver_requisicion.php?id=".$row["id"]; ?>">ver mas</a></div>
 						</ul>
 					</div>

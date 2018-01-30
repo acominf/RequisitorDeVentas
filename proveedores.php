@@ -26,7 +26,7 @@
                             <img src="img/<?php echo empty($row['img']) ?  'sinfoto.png' : $row['img']; ?>" alt="<?php echo $row["nombre"]; ?>" class="img-responsive img-circle" />
                         </div>
                         <div class="col-xs-12 col-sm-6">
-                            <h3><?php echo $row["nombre"]; ?></h3><br/>
+                            <h3><?php echo $row["nombre"]." ".$row["apellido"]; ?></h3><br/>
                             <span class="glyphicon glyphicon-envelope" data-toggle="tooltip" title="<?php echo $row['correo']; ?>"><?php echo " ".$row['correo']; ?></span>
                         </div>
                         </a>
