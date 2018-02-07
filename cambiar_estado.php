@@ -2,31 +2,24 @@
 	include 'partials/includer.php';
 	include 'partials/cabezera.php';
 	include 'partials/navbar.php';
-	if (isset($_POST["cambiar_estado"])) {
-		foreach($_POST["persona"] as $key => $value) {
-			$sql = "SELECT * FROM `usuario` WHERE `usuario`.`id` = ".$key;
-			if (($resultado = $conn->query($sql)) !== FALSE) {
-				if ($resultado->num_rows > 0) {
-					$usuario = $resultado->fetch_array(MYSQLI_ASSOC);
-					$estado = $usuario["estado"] == 0? 1 : 0; 
-					$sql2 = "UPDATE `usuario` SET `estado` = '".$estado."' WHERE `usuario`.`id` = ".$key;
-					echo $sql2."<br>";
-					if ($conn->multi_query($sql2)=== TRUE){
-					}
-				}
-			}
+	if (isset($_POST["tipo"])) {
+		if ($_POST["tipo"] == "requisicion") {
+			$id = $_POST["id"];
+			$estado = $_POST["estado"];
+			$sql2 = "UPDATE `requisicion` SET `estado` = '".$estado."' WHERE `requisicion`.`id` = ".$id;
+			$conn->multi_query($sql2);
 		}
-		foreach($_POST["requisicion"] as $key => $value) {
-			$sql = "SELECT * FROM `requisicion` WHERE `requisicion`.`id` = ".$key;
-			if (($resultado = $conn->query($sql)) !== FALSE) {
-				if ($resultado->num_rows > 0) {
-					$requisicion = $resultado->fetch_array(MYSQLI_ASSOC);
-					$estado = $requisicion["estado"] == 0? 1 : 0; 
-					$sql2 = "UPDATE `requisicion` SET `estado` = '".$estado."' WHERE `requisicion`.`id` = ".$key;
-					if ($conn->multi_query($sql2)=== TRUE){
-					}
-				}
-			}			
+		if ($_POST["tipo"] == "persona") {
+			$id = $_POST["id"];
+			$estado = $_POST["estado"];
+			$sql2 = "UPDATE `usuario` SET `estado` = '".$estado."' WHERE `usuario`.`id` = ".$id;
+			$conn->multi_query($sql2);
+		}
+		if ($_POST["tipo"] == "tipo_usuario") {
+			$id = $_POST["id"];
+			$estado = $_POST["estado"];
+			$sql2 = "UPDATE `usuario` SET `tipo` = '".$estado."' WHERE `usuario`.`id` = ".$id;
+			$conn->multi_query($sql2);
 		}		
 	}else{
 		$id = $_GET["id"];
@@ -52,6 +45,5 @@
 		}
 	}
 	header('Location: ' . $_SERVER['HTTP_REFERER']);
-
 
  ?>

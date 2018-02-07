@@ -83,10 +83,10 @@
                                         $datos_cantidad = $cantidad->fetch_array(MYSQLI_ASSOC);?>                         
                                         <tr>
                                             <td><?php echo $nombre; ?></td>
-                                            <td class="text-center"><?php echo $precio; ?>$</td>
+                                            <td class="text-center">$<?php echo $precio; ?></td>
                                             <td class="text-center"><?php echo $datos_cantidad["cantidad"]; ?></td>
                                             <td class="text-right"><?php $total += (float)$precio*(int)$datos_cantidad["cantidad"];
-                                            echo ((float)$precio*(int)$datos_cantidad["cantidad"]); ?>$</td>
+                                            echo ('$'.(float)$precio*(int)$datos_cantidad["cantidad"]); ?></td>
                                         </tr>
                                     <?php
                                     }
@@ -97,7 +97,7 @@
     								<td class="no-line"></td>
     								<td class="no-line"></td>
     								<td class="no-line text-center"><strong>Total</strong></td>
-    								<td class="no-line text-right"><?php echo $total; ?>$</td>
+    								<td class="no-line text-right">$<?php echo $total; ?></td>
     							</tr>
     						</tbody>
     					</table>

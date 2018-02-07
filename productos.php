@@ -24,7 +24,7 @@
 										</a>
 									</h5>
 									<p class="price-container">
-										<span><?php echo $row['precio']; ?>$</span>
+										<span>$<?php echo $row['precio']; ?></span>
 									</p>
 									<span class="tag1"></span> 
 							</div>

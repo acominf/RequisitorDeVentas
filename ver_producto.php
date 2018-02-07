@@ -33,7 +33,7 @@
 <div class="container" style="margin-left: 18%;">
 	<div class="row">
        <div class="col-xs-4 item-photo">
-            <img style="max-width:100%;" src="img/productos/<?php echo empty($img) ?  'sinfoto.png' : $img; ?>" />
+            <img style="max-width:100%;" src="img/<?php echo empty($img) ?  'sinfoto.png' : $img; ?>" />
         </div>
         <div class="col-xs-5" style="border:0px solid gray">
             <!-- Datos del vendedor y titulo del producto -->

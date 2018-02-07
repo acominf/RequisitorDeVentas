@@ -5,7 +5,7 @@
 	$sql = "SELECT * FROM `producto` WHERE proveedor_id = ".$_SESSION["id"];
 	if (isset($_POST["new_product"])){
 
-		$directorio = "img/productos";
+		$directorio = "img/productos/";
 		$nombre_img = basename($_FILES["fileToUpload"]["name"]);
 		$archivo = $directorio . $nombre_img;
 		$uploadOk = 1;
@@ -45,9 +45,9 @@
 	    $descripcion = $_POST["descripcion"];
 	    $precio = $_POST["precio"];
 	    if ($uploadOk == 0) {
-      		$sql2 = "INSERT INTO `producto` (`proveedor_id`, `nombre`, `descripcion`) VALUES ('".$_SESSION["id"]."', '".$name."','".$descripcion."');";
+      		$sql2 = "INSERT INTO `producto` (`proveedor_id`, `nombre`, `descripcion`, `precio`) VALUES ('".$_SESSION["id"]."', '".$name."','".$descripcion."', '".$precio."');";
 		}else{
-      		$sql2 = "INSERT INTO `producto` (`proveedor_id`, `nombre`, `descripcion`, `img`) VALUES ('".$_SESSION["id"]."', '".$name."','".$descripcion."', '".$nombre_img."');";
+      		$sql2 = "INSERT INTO `producto` (`proveedor_id`, `nombre`, `descripcion`, `img`, `precio`) VALUES ('".$_SESSION["id"]."', '".$name."','".$descripcion."', '".$nombre_img."', '".$precio."');";
 		}
 		if (($resultado = $conn->query($sql2)) !== FALSE) {
 	    	?>
@@ -61,7 +61,7 @@
 	}
 	if (isset($_POST["edit_product"])){
 
-		$directorio = "img/productos";
+		$directorio = "img/productos/";
 		$nombre_img = basename($_FILES["fileToUpload"]["name"]);
 		$archivo = $directorio . $nombre_img;
 		$uploadOk = 1;
@@ -101,9 +101,9 @@
 	    $descripcion = $_POST["descripcion"];
 	    $precio = $_POST["precio"];
 	    if ($uploadOk == 0) {
-      		$sql2 = "UPDATE  `producto` `proveedor_id`, `nombre`, `descripcion` VALUES ('".$_SESSION["id"]."', '".$name."','".$descripcion."');";
+      		$sql2 = "UPDATE  `producto` `proveedor_id`, `nombre`, `descripcion`, `precio` VALUES ('".$_SESSION["id"]."', '".$name."','".$descripcion."', '".$precio."');";
 		}else{
-      		$sql2 = "UPDATE  `producto` `proveedor_id`, `nombre`, `descripcion`, `img` VALUES ('".$_SESSION["id"]."', '".$name."','".$descripcion."', '".$nombre_img."');";
+      		$sql2 = "UPDATE  `producto` `proveedor_id`, `nombre`, `descripcion`, `img`, `precio` VALUES ('".$_SESSION["id"]."', '".$name."','".$descripcion."', '".$nombre_img."', '".$precio."');";
 		}
 		if (($resultado = $conn->query($sql2)) !== FALSE) {
 	    	?>
@@ -140,7 +140,7 @@
 										</a>
 									</h5>
 									<p class="price-container">
-										<span><?php echo $row['precio']; ?>$</span>
+										<span>$<?php echo $row['precio']; ?></span>
 									</p>
 									<span class="tag1"></span> 
 							</div>

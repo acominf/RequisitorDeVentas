@@ -83,6 +83,7 @@
 		    <script type="text/javascript"> alert("Hubo un error actualizado los datos");</script>
 		    <?php
 		}
+		header('Location: perfil.php');
 	}
 ?>
 

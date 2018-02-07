@@ -23,7 +23,7 @@
 	<div class="form-group ">
 	  <label for="price" class="col-sm-2 control-label">Precio del producto </label>
 	  <div class="col-sm-10">
-	    <input type="text" class="form-control" id="precio" name="precio" placeholder="" value="" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+	    <input type="text" class="form-control" id="precio" name="precio" placeholder="" value="" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57 ) || event.charCode <= 13 || event.charCode == 46)'>
 		</div>
 	</div>
 	<div class="form-group">

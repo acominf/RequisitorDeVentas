@@ -8,28 +8,18 @@
     $apellido = $_POST["last_name"];
     $email = $_POST["email"];
     $contrasena = md5($_POST["password"]);
-    $chequear_email = "SELECT * FROM `usuario` WHERE `correo` = '".$email."'";
-    if ($resultado = mysql_query($chequear_email) && mysql_num_rows($resultado) > 0) {
-      $sql = "INSERT INTO `usuario` (`nombre`, `apellido`, `correo`, `contrasena`, `tipo`) VALUES ('".$nombre."', '".$apellido."', '".$email."', '".$contrasena."', '2');";
-
-      if ($conn->multi_query($sql)=== TRUE){
-        ?>
-        <script type="text/javascript">
-          alert("Se ha creado el usuario correctamente!");
-        </script>
-        <?php
-      }else{
-        ?>
-        <script type="text/javascript">
-          alert("Hubo un error creando el usuario");
-        </script>
-        <?php
-      }
+    $sql = "INSERT INTO `usuario` (`nombre`, `apellido`, `correo`, `contrasena`, `tipo`) VALUES ('".$nombre."', '".$apellido."', '".$email."', '".$contrasena."', '2');";
+    if ($conn->multi_query($sql)=== TRUE){
+      ?>
+      <script type="text/javascript">
+        alert("Se ha creado el usuario correctamente!");
+      </script>
+      <?php
     }else{
-        ?>
-        <script type="text/javascript">
-          alert("El correo electronico ya está en uso");
-        </script>
+      ?>
+      <script type="text/javascript">
+        alert("Hubo un error creando el usuario");
+      </script>
       <?php
     }
   }
@@ -61,7 +51,11 @@
     <?php
     }
     $actual_link = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+    $first = explode("index.php", $actual_link)[0];
+    $prev_link = $_SERVER['HTTP_REFERER'];
     $prev_page = substr($_SERVER['HTTP_REFERER'], strpos($_SERVER['HTTP_REFERER'], $actual_link) + 37);
+    $arr = explode($first, $prev_link);
+    $prev_page = $arr[1];
     header('Location: '.$prev_page);
   }
 
