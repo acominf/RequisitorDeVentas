@@ -10,6 +10,7 @@
 			$img = $row["img"];        
 			$descripcion = $row["descripcion"];    
 			$precio = $row["precio"];
+			$id_Producto = $row["id"];
 		}
 	}
  ?>
@@ -26,7 +27,7 @@
 	<div class="form-group">
 	  <label for="imagen" class="col-sm-2 control-label">Foto del producto</label>
 	  <div class="col-sm-10">
-	    <input type="file" name="fileToUpload" id="fileToUpload">
+	    <input type="file" name="fileToUpload" id="fileToUpload" >
 	  </div>
 	</div>
 	<div class="form-group ">
@@ -43,6 +44,9 @@
 	</div>
 	<div id="divCheckbox" style="display: none;">
 		<input type="text" name="edit_product" value="1">
+	</div>
+	<div id="divCheckbox" style="display: none;">
+		<input type="text" name="id_Producto" value="<?php echo $id_Producto; ?>">
 	</div>
 	<div class="form-group">
 	  <div class="col-sm-10 col-sm-offset-2">

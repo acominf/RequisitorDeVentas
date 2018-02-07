@@ -10,19 +10,22 @@
 		$archivo = $directorio . $nombre_img;
 		$uploadOk = 1;
 		$imageFileType = strtolower(pathinfo($archivo,PATHINFO_EXTENSION));
-		if(isset($_POST["submit"])) {
+		if(isset($_POST["submit"])) 
+		{
 		    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-		    if($check !== false) {
+		    if($check !== false) 
+		    {
 		        $uploadOk = 1;
-		    } else {
+		    } 
+		    else 
+		    {
 		    	?>
 		        <script type="text/javascript"> alert("El archivo no es una foto");</script>
 		        <?php
 		        $uploadOk = 0;
 		    }
 		}
-		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-		&& $imageFileType != "gif" ) {
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
 	    	?>
 	        <script type="text/javascript"> alert("Sólo se permiten los siguientes formatos: JPG, JPEG, PNG, GIF");</script>
 	        <?php
@@ -33,7 +36,7 @@
 	        <script type="text/javascript"> alert("Hubo un error subiendo la foto");</script>
 	        <?php
 		} else {
-		    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $archivo)) {
+		    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $archivo)) { 
 		        
 		    } else {
 		    	?>
@@ -59,53 +62,72 @@
 		    <?php
 		}
 	}
-	if (isset($_POST["edit_product"])){
+	if (isset($_POST["edit_product"]))
+	{
 
 		$directorio = "img/productos/";
 		$nombre_img = basename($_FILES["fileToUpload"]["name"]);
 		$archivo = $directorio . $nombre_img;
-		$uploadOk = 1;
-		$imageFileType = strtolower(pathinfo($archivo,PATHINFO_EXTENSION));
-		if(isset($_POST["submit"])) {
-		    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-		    if($check !== false) {
-		        $uploadOk = 1;
-		    } else {
+		$uploadOk = 0;
+		
+		if($nombre_img != "")
+		{
+			$imageFileType = strtolower(pathinfo($archivo,PATHINFO_EXTENSION));
+			if(isset($_POST["submit"])) {
+			    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+			    if($check !== false) {
+			        $uploadOk = 1;
+			    } else {
+			    	?>
+			        <script type="text/javascript"> alert("El archivo no es una foto");</script>
+			        <?php
+			        $uploadOk = 0;
+			    }
+			}
+			if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+			&& $imageFileType != "gif" ) 
+			{
 		    	?>
-		        <script type="text/javascript"> alert("El archivo no es una foto");</script>
+		        <script type="text/javascript"> alert("Sólo se permiten los siguientes formatos: JPG, JPEG, PNG, GIF");</script>
 		        <?php
-		        $uploadOk = 0;
-		    }
-		}
-		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-		&& $imageFileType != "gif" ) {
-	    	?>
-	        <script type="text/javascript"> alert("Sólo se permiten los siguientes formatos: JPG, JPEG, PNG, GIF");</script>
-	        <?php
-		    $uploadOk = 0;
-		}
-		if ($uploadOk == 0) {
-	    	?>
-	        <script type="text/javascript"> alert("Hubo un error subiendo la foto");</script>
-	        <?php
-		} else {
-		    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $archivo)) {
-		        
-		    } else {
+			    $uploadOk = 0;
+			}
+			if ($uploadOk == 0) 
+			{
 		    	?>
 		        <script type="text/javascript"> alert("Hubo un error subiendo la foto");</script>
 		        <?php
-		    }
+			} 
+			else 
+			{
+		    	if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $archivo)) 
+		    	{
+		        }
+		    
+			    else 
+			    {
+			    	?>
+			        <script type="text/javascript"> alert("Hubo un error subiendo la foto");</script>
+			        <?php
+			    }
+			}
 		}
+	
 		$name = $_POST["name"];
 	    $descripcion = $_POST["descripcion"];
 	    $precio = $_POST["precio"];
-	    if ($uploadOk == 0) {
-      		$sql2 = "UPDATE  `producto` `proveedor_id`, `nombre`, `descripcion`, `precio` VALUES ('".$_SESSION["id"]."', '".$name."','".$descripcion."', '".$precio."');";
-		}else{
-      		$sql2 = "UPDATE  `producto` `proveedor_id`, `nombre`, `descripcion`, `img`, `precio` VALUES ('".$_SESSION["id"]."', '".$name."','".$descripcion."', '".$nombre_img."', '".$precio."');";
-		}
-		if (($resultado = $conn->query($sql2)) !== FALSE) {
+	    $id_Producto = $_POST["id_Producto"];
+
+	    if ($uploadOk == 0) 
+	    {
+      		$sql2 = "UPDATE  `producto` SET  `nombre` = '".$name."' , `descripcion` = '".$descripcion."', `precio` = '".$precio."' WHERE `id` = '".$id_Producto."';" ;
+	    }
+		else
+		{
+			$sql2 = "UPDATE  `producto` SET  `nombre` = '".$name."' , `descripcion` = '".$descripcion."', `precio` = '".$precio."', `img` = '".$nombre_img."' WHERE `id` = '".$id_Producto."');" ;
+      	}
+		if (($resultado = $conn->query($sql2)) !== FALSE) 
+		{
 	    	?>
 	        <script type="text/javascript"> alert("Se han actualizado el producto satisfactoriamente");</script>
 	        <?php
