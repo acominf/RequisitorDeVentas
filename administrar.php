@@ -3,7 +3,7 @@
 	include 'partials/cabezera.php';
 	include 'partials/navbar.php';
 	$sql2 = "SELECT * FROM `usuario` WHERE `tipo` != 0";
-	$sql = "SELECT * FROM `requisicion` GROUP BY `requisicion`.`id`";
+	$sql = "SELECT * FROM `requisicion` ";
 	$meses = array(
 		"01" => "Enero",
 		"02" => "Febrero",
@@ -111,8 +111,7 @@
 								<div class="info">
 									<?php
 									$total = 0;
-									$sql_req = "SELECT * FROM `requisicion` where `requisicion`.`id` = ".$row["id"]." GROUP BY `requisicion`.`producto_id";
-									 
+									$sql_req = "SELECT * FROM `requisicion` where `requisicion`.`id` = ".$row["id"];
 										if (($resultado_req = $conn->query($sql_req)) !== FALSE) {
 											$sql_user = "select * from usuario where id =".$row["usuario_id"];
 											if (($res_usuario = $conn->query($sql_user)) !== FALSE) {
@@ -125,15 +124,10 @@
 										<center><h2 class="title">Requisición #<?php echo $row["id"]." - ".$nombre_usuario; ?></h2></center>
 			                            <?php
 			                            while($product_row = $resultado_req->fetch_array(MYSQLI_ASSOC)){ 
-			                                $sql_1 = "SELECT * FROM `producto` WHERE `producto`.`id` = ".$product_row["producto_id"];
+			                                $sql_1 = "SELECT sum( P.precio ) AS `Total` FROM `detalleRequisicion` AS dR INNER JOIN `producto` AS P ON P.id = dR.productoId WHERE dR.requisicionID = ".$row["id"];
 			                                if (($resultado2 = $conn->query($sql_1)) !== FALSE) {
 			                                    while($result = $resultado2->fetch_array(MYSQLI_ASSOC)){
-			                                        $id = $result["id"];        
-			                                        $precio = $result["precio"];        
-			                                        $sql2 = "SELECT COUNT(id) AS 'cantidad' FROM requisicion WHERE id = ".$row["id"]." AND producto_id = ".$result["id"];
-			                                        $cantidad = $conn->query($sql2);
-			                                        $datos_cantidad = $cantidad->fetch_array(MYSQLI_ASSOC);
-			                                        $total += (float)$precio*(int)$datos_cantidad["cantidad"];
+			                                        $total = $result["Total"];
 			                                    }
 			                                }
 			                            }?>
@@ -142,12 +136,26 @@
     								$<?php echo $total; ?></center>
 									<center style="position:  relative;top: -19px;">
 									<div align="right"><a href="<?php echo "ver_requisicion.php?id=".$row["id"]; ?>">ver Requisicion</a></div>
-			                       	<?php if ($row["estado"]==0) {
+			                       	<?php 
+			                       	if ($row["estado"]==2)
+			                       	{
 									?>
-	                        	<input type="checkbox" name="requisicion,<?php echo $row["id"]; ?>" id="estado_checkbox" value ="1"  checked><label> Aprobada</label><br>
-	                        <?php }else{ ?>
-	                        	<input type="checkbox" name="requisicion,<?php echo $row["id"]; ?>" id="estado_checkbox" value ="0"  ><label> Rechazada</label><br>
-	                         <?php } ?>
+	                        			<input type="checkbox" name="requisicion,<?php echo $row["id"]; ?>" id="estado_checkbox" value ="0"><label> Sin Revision</label><br>
+			                        <?php 
+			                        }
+			                        else{
+			                       	if ($row["estado"]==0)
+			                       	{
+									?>
+	                        			<input type="checkbox" name="requisicion,<?php echo $row["id"]; ?>" id="estado_checkbox" value ="1"  checked><label> Aprobada</label><br>
+			                        <?php 
+			                        }	
+			                        	else
+			                        	{ 
+			                        ?>
+	                        			<input type="checkbox" name="requisicion,<?php echo $row["id"]; ?>" id="estado_checkbox" value ="0"  ><label> Rechazada</label><br>
+	                         		<?php 
+	                         			} }?>
 									</center>
 								</div>
 							</li>
@@ -167,7 +175,7 @@
     	id = valores[1];
     	nuevo_estado = this.value == 0 ? 1 : 0;
         $.ajax({ 
-        	url: '/RequisitorDeVentas/cambiar_estado.php',
+        	url: '/cambiar_estado.php',
             context: this,
             data: {tipo: valores[0], id: valores[1], estado: this.value },
             type: 'post',
@@ -191,7 +199,7 @@
     	valores = this.name.split(",");
     	id = valores[1];
         $.ajax({ 
-        	url: '/RequisitorDeVentas/cambiar_estado.php',
+        	url: '/cambiar_estado.php',
             context: this,
             data: {tipo: valores[0], id: valores[1], estado: this.value },
             type: 'post',

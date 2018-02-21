@@ -33,7 +33,18 @@
 								</time>								
 								<div class="info">
 									<center><h2 class="title">Requisición #<?php echo $row["id"]; ?></h2></center>
-									<center><p>Estado: <?php echo $row["estado"]== 0? "Por aprobar" :"Rechazado";  ?></p></center>
+									<center><p>Estado: <?php  switch ($row["estado"]) {
+									case 0: 
+										echo "aprobada";
+										break;
+									case 1:
+										echo "Rechazado";
+										break;
+									case 2:
+										echo "en revisión";
+										break;
+									}
+									?></p></center>
 								</div>
 							</li>
 							<div align="right"><a href="<?php echo "editar_requisicion.php?id=".$row["id"]; ?>">editar</a></div>

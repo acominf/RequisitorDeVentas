@@ -33,7 +33,7 @@
 <div class="container" style="margin-left: 18%;">
 	<div class="row">
        <div class="col-xs-4 item-photo">
-            <img style="max-width:100%;" src="img/<?php echo empty($img) ?  'sinfoto.png' : $img; ?>" />
+            <img style="max-width:100%;" src="img/productos/<?php echo empty($img) ?  'sinfoto.png' : $img; ?>" />
         </div>
         <div class="col-xs-5" style="border:0px solid gray">
             <!-- Datos del vendedor y titulo del producto -->
@@ -41,7 +41,7 @@
             <h5 style="color:#337ab7">vendido por <a href="<?php echo "ver_proveedor.php?id=".$row["proveedor_id"]; ?>"><?php echo $datos_vendedor["nombre"]." ".$datos_vendedor["apellido"]; ?></a></h5>
             <!-- Precios -->
             <h6 class="title-price"><small>PRECIO</small></h6>
-            <h3 style="margin-top:0px;"><?php echo $precio; ?>$</h3>
+            <h3 style="margin-top:0px;">$<?php echo $precio; ?></h3>
             <?php if (isset($_SESSION['logeado']) && ($_SESSION['tipo'] == 2)){ ?>
 	            <!-- Botones de compra -->
 	            <div class="section" style="padding-bottom:20px;">

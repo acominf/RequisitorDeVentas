@@ -103,7 +103,7 @@
 								</div>
 								<div class="social" style="margin-right:5%;">
 									<ul>
-										<li style="width:33%;display: block;width: 40px;padding: 10px 0px 9px;"><?php echo $row["precio"]." $"; ?></li>
+										<li style="width:33%;display: block;width: 40px;padding: 10px 0px 9px;"><?php echo  "$".$row["precio"]; ?></li>
 									</ul>
 								</div>
 								<div align="right"><a href="<?php echo "ver_producto.php?id=".$row["id"]; ?>">ver mas</a></div>

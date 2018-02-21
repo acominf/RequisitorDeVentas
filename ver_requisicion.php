@@ -69,16 +69,16 @@
     						</thead>
     						<tbody>
 					<?php 
-                        $sql = "SELECT * FROM `requisicion` where `requisicion`.`id` = ".$id." GROUP BY `requisicion`.`producto_id";
+                        $sql = "SELECT * FROM `detalleRequisicion` where `detalleRequisicion`.`requisicionId` = ".$id." GROUP BY `detalleRequisicion`.`productoId";
                         if (($resultado = $conn->query($sql)) !== FALSE) {
                             while($row = $resultado->fetch_array(MYSQLI_ASSOC)){ 
-                                $sql_1 = "SELECT * FROM `producto` WHERE `producto`.`id` = ".$row["producto_id"];
+                                $sql_1 = "SELECT * FROM `producto` WHERE `producto`.`id` = ".$row["productoId"];
                                 if (($resultado2 = $conn->query($sql_1)) !== FALSE) {
                                     while($result = $resultado2->fetch_array(MYSQLI_ASSOC)){
                                         $id = $result["id"];        
                                         $precio = $result["precio"];        
                                         $nombre = $result["nombre"];        
-                                        $sql2 = "SELECT COUNT(id) AS 'cantidad' FROM requisicion WHERE id = ".$_GET["id"]." AND producto_id = ".$result["id"];
+                                        $sql2 = "SELECT COUNT(id) AS 'cantidad' FROM detalleRequisicion WHERE productoId = ".$result["id"]." and requisicionId = ".$_GET["id"];
                                         $cantidad = $conn->query($sql2);
                                         $datos_cantidad = $cantidad->fetch_array(MYSQLI_ASSOC);?>                         
                                         <tr>

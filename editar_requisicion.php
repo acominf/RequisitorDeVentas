@@ -2,11 +2,12 @@
 	include 'partials/includer.php';
 	include 'partials/cabezera.php';
 	include 'partials/navbar.php';
-	$sql = "SELECT * FROM `requisicion` WHERE `requisicion`.`id` = ".$_GET["id"];
+	$sql = "SELECT * FROM `detalleRequisicion` WHERE `requisicionId` = ".$_GET["id"];
 
 	if (isset($_POST["eliminar"])) {
 
-		$sql3 = "DELETE FROM `requisicion` WHERE `producto_id` = ".$_POST["eliminar"]." AND `id` = ".$_GET["id"];
+		$sql3 = "DELETE FROM `detalleRequisicion` WHERE `id` = ".$_POST["eliminar"].";";
+		
 		$conn->query($sql3);
 	}
 
@@ -16,7 +17,8 @@
 	<?php
 	if (($resultado = $conn->query($sql)) !== FALSE) {
 			while($row = $resultado->fetch_array(MYSQLI_ASSOC)){ 
-				$sql2 = "SELECT * FROM `producto` WHERE `id` = ".$row["producto_id"];
+				$sql2 = "SELECT D.id as `detalleId`,P.* FROM `producto` as `P` inner join `detalleRequisicion` as `D` on `D`.`productoId` = `P`.`id` WHERE `P`.`id` = ".$row["productoId"]." and `D`.`requisicionId` = ".$_GET["id"].";";
+                
                 $productos = $conn->query($sql2);
                 $producto = $productos->fetch_array(MYSQLI_ASSOC);?> 
 				<div class="col-xs-12 col-md-6">
@@ -30,12 +32,12 @@
 								<div class="col-md-7 col-sm-12 col-xs-12">
 								<div class="product-deatil">
 										<h5 class="name">
-											<a href="<?php echo "ver_producto.php?id=".$row['id']; ?>">
+											<a href="<?php echo "ver_producto.php?id=".$producto['id']; ?>">
 											 	<?php echo $producto['nombre']; ?>
 											</a>
 										</h5>
 										<p class="price-container">
-											<span><?php echo $producto['precio']; ?>$</span>
+											<span>$<?php echo $producto['precio']; ?></span>
 										</p>
 										<span class="tag1"></span> 
 								</div>
@@ -47,7 +49,7 @@
 										<div class="col-md-12">
 										<form class="form-horizontal" role="form" method="post" action="editar_requisicion.php?id=<?php echo $_GET["id"]; ?>" enctype="multipart/form-data">
 												<div id="divCheckbox" style="display: none;">
-													<input type="text" name="eliminar" value="<?php echo $row["producto_id"]; ?>">
+													<input type="text" name="eliminar" value="<?php echo $producto["detalleId"]; ?>">
 												</div>
 											<div class="form-group">
 											  <div class="col-sm-10 col-sm-offset-2">
